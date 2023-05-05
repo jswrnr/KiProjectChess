@@ -12,6 +12,11 @@ public class Knight extends Piece {
     }
 
     @Override
+    public String toString() {
+        return this.white ? "N" : "n";
+    }
+
+    @Override
     public String[] legalMoves(Field[][] board) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");
