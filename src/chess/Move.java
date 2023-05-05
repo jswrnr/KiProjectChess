@@ -1,12 +1,15 @@
 package chess;
+import pieces.Piece;
 
 public class Move {
     private Field from;
     private Field to;
+    private Piece movingPiece;
 
-    public Move(Field from, Field to) {
+    public Move(Field from, Field to, Piece movingPiece) {
         this.from = from;
         this.to = to;
+        this.movingPiece = movingPiece;
     }
 
     public Field getFrom() {
@@ -15,6 +18,10 @@ public class Move {
 
     public Field getTo() {
         return to;
+    }
+
+    public Piece getMovingPiece() {
+        return movingPiece;
     }
 
     @Override
