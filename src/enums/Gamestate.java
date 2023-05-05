@@ -1,5 +1,5 @@
 package enums;
 
 public enum Gamestate {
-    WHITEWON, BLACKWON, DRAW, INPROGRESS
+    WHITEWON, BLACKWON, DRAW, WHITESTURN, BLACKSTURN
 }
