@@ -8,6 +8,11 @@ public class Bishop extends Piece {
     }
 
     @Override
+    public String toString() {
+        return this.white ? "B" : "b";
+    }
+
+    @Override
     public String[] legalMoves(Field[][] board) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");

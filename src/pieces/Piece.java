@@ -2,14 +2,14 @@ package pieces;
 
 import chess.Field;
 public abstract class Piece {
-    private boolean isWhite;
+    protected boolean white;
 
-    public Piece(boolean isWhite) {
-        this.isWhite = isWhite;
+    public Piece(boolean white) {
+        this.white = white;
     }
 
     public boolean isWhite() {
-        return isWhite;
+        return this.white;
     }
 
     abstract public String[] legalMoves(Field[][] board);

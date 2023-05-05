@@ -8,6 +8,11 @@ public class King extends Piece {
     }
 
     @Override
+    public String toString() {
+        return this.white ? "K" : "k";
+    }
+
+    @Override
     public String[] legalMoves(Field[][] board) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");
