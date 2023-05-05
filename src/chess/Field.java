@@ -23,4 +23,9 @@ public class Field {
     public void setPiece(Piece p) {
         this.piece = p;
     }
+
+    @Override
+    public String toString() {
+        return isEmpty() ? "0" : piece.toString();
+    }
 }

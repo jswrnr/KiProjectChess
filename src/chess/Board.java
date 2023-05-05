@@ -91,4 +91,16 @@ public class Board {
     public Field[][] getBoard() {
         return board;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (Field[] row : board) {
+            for (Field f : row) {
+                s += f.toString();
+            }
+            s += "\n";
+        }
+        return s;
+    }
 }
