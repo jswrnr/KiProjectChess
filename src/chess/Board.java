@@ -1,3 +1,4 @@
+package chess;
 public class Board {
     private Field[][] board;
 

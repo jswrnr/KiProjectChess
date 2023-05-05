@@ -1,3 +1,4 @@
+package chess;
 import pieces.Piece;
 
 public class Field {
