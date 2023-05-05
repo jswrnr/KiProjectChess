@@ -3,9 +3,13 @@ package pieces;
 import chess.Field;
 
 public class Knight extends Piece {
-     public Knight(boolean white) {
+
+    private boolean hasMoved;
+
+    public Knight(boolean white) {
         super(white);
-     }
+        this.hasMoved = false;
+    }
 
     @Override
     public String[] legalMoves(Field[][] board) {
