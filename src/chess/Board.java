@@ -32,6 +32,7 @@ public class Board {
     private Field[][] createBoardFromFen(String fen) {
         //split fen string so we only use the part that describes the pieces
         Field[][] board = createDefaultBoard();
+        System.out.println(fen);
         fen = fen.split(" ")[0];
         //take the fen string and replace every number with the corresponding amount of empty fields
         fen = fen.replaceAll("1", "0");
@@ -42,6 +43,8 @@ public class Board {
         fen = fen.replaceAll("6", "000000");
         fen = fen.replaceAll("7", "0000000");
         fen = fen.replaceAll("8", "00000000");
+        //remove all slashes
+        fen = fen.replaceAll("/", "");
         Piece p;
         //takes a fen string and returns a 8x8 Field array with the pieces set according to the fen string
         int x, y;
@@ -59,7 +62,7 @@ public class Board {
                     y = i % 8;
                     //if i is less than 8, we are on the first line, so we dont need to divide by 8
                     //if i is greater than 8, we need to divide by 8 to get the correct line
-                    x = i>0 ? (i-y) / 8 : 0;
+                    x = i>8 ? (i-y) / 8 : 0;
                     p = getPieceFromFenChar(c, x, y);
                     //looks stupid. fix later
                     board[x][y].setPiece(p);
