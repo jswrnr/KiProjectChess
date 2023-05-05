@@ -30,6 +30,8 @@ public class Board {
     } 
 
     private Field[][] createBoardFromFen(String fen) {
+        //split fen string so we only use the part that describes the pieces
+        fen = fen.split(" ")[0];
         Piece p;
         //takes a fen string and returns a 8x8 Field array with the pieces set according to the fen string
         for (int i = 0; i < fen.length(); i++) {
