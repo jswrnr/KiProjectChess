@@ -56,7 +56,7 @@ public class Board {
         return new Field[8][8];
     }
 
-    private Piece getPieceFromFenChar(char c) throws IncorrectFenException {
+    private Piece getPieceFromFenChar(char c, int x, int y) throws IncorrectFenException {
         //take a single character and return the corresponding piece
         switch (c) {
             case 'p':

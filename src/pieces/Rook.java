@@ -14,7 +14,6 @@ public class Rook extends Piece {
 
     @Override
     public String[] legalMoves(Field[][] board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");
+        return new String[] {};
     }
 }
