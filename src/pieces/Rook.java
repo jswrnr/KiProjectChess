@@ -3,8 +3,12 @@ package pieces;
 import chess.Field;
 
 public class Rook extends Piece {
+    //if the rook has moved, it can't castle
+    boolean hasMoved = false;
+
     public Rook(boolean white) {
         super(white);
+        this.hasMoved = false;
     }
 
     @Override
