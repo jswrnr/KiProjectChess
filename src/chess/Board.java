@@ -31,9 +31,20 @@ public class Board {
 
     private Field[][] createBoardFromFen(String fen) {
         //split fen string so we only use the part that describes the pieces
+        Field[][] board = createDefaultBoard();
         fen = fen.split(" ")[0];
+        //take the fen string and replace every number with the corresponding amount of empty fields
+        fen = fen.replaceAll("1", "0");
+        fen = fen.replaceAll("2", "00");
+        fen = fen.replaceAll("3", "000");
+        fen = fen.replaceAll("4", "0000");
+        fen = fen.replaceAll("5", "00000");
+        fen = fen.replaceAll("6", "000000");
+        fen = fen.replaceAll("7", "0000000");
+        fen = fen.replaceAll("8", "00000000");
         Piece p;
         //takes a fen string and returns a 8x8 Field array with the pieces set according to the fen string
+        int x, y;
         for (int i = 0; i < fen.length(); i++) {
             char c = fen.charAt(i);
             if (c == '/') {
@@ -45,15 +56,19 @@ public class Board {
             } else {
                 // set the piece on the board
                 try {
-                    p = getPieceFromFenChar(c);
+                    y = i % 8;
+                    //if i is less than 8, we are on the first line, so we dont need to divide by 8
+                    //if i is greater than 8, we need to divide by 8 to get the correct line
+                    x = i>0 ? (i-y) / 8 : 0;
+                    p = getPieceFromFenChar(c, x, y);
                     //looks stupid. fix later
-                    board[i/8][i%8].setPiece(p);
+                    board[x][y].setPiece(p);
                 } catch (IncorrectFenException e) {
                     System.out.println(e.getMessage());
                 }
             }
         }
-        return new Field[8][8];
+        return board;
     }
 
     private Piece getPieceFromFenChar(char c, int x, int y) throws IncorrectFenException {
