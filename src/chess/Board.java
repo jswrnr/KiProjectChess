@@ -22,7 +22,7 @@ public class Board {
         Field[][] board = new Field[8][8];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Field(i, j, null);
+                board[j][i] = new Field(j, i, null);
             }
         }
         return board;
@@ -61,13 +61,13 @@ public class Board {
             } else {
                 // set the piece on the board
                 try {
-                    y = i % 8;
+                    x = i % 8;
                     //if i is less than 8, we are on the first line, so we dont need to divide by 8
                     //if i is greater than 8, we need to divide by 8 to get the correct line
-                    x = i>8 ? (i-y) / 8 : 0;
+                    y = i>8 ? (i-x) / 8 : 0;
                     p = Piece.getPieceFromChar(c);
                     //looks stupid. fix later
-                    board[x][y].setPiece(p);
+                    board[y][x].setPiece(p);
                 } catch (IncorrectFenException e) {
                     System.out.println(e.getMessage());
                 }
