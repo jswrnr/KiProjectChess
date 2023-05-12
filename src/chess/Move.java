@@ -1,26 +1,25 @@
 package chess;
-import pieces.Piece;
 
 public class Move {
-    private Field from;
-    private Field to;
-    private Piece movingPiece;
+    private int[] from;
+    private int[] to;
+    private char movingPiece;
 
-    public Move(Field from, Field to, Piece movingPiece) {
+    public Move(int[] from, int[] to, char movingPiece) {
         this.from = from;
         this.to = to;
         this.movingPiece = movingPiece;
     }
 
-    public Field getFrom() {
+    public int[] getFrom() {
         return from;
     }
 
-    public Field getTo() {
+    public int[] getTo() {
         return to;
     }
 
-    public Piece getMovingPiece() {
+    public char getMovingPiece() {
         return movingPiece;
     }
 

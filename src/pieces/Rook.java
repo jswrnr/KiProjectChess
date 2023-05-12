@@ -1,6 +1,8 @@
 package pieces;
 
-import chess.Field;
+import java.util.LinkedList;
+import chess.Board;
+import chess.Move;
 
 public class Rook extends Piece {
     //if the rook has moved, it can't castle
@@ -17,7 +19,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public String[] legalMoves(Field[][] board) {
-        return new String[] {};
+    public LinkedList<Move> legalMoves(Board board, int x, int y) {
+        return new LinkedList<Move>();
     }
 }

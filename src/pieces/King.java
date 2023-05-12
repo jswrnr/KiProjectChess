@@ -1,6 +1,8 @@
 package pieces;
 
-import chess.Field;
+import java.util.LinkedList;
+import chess.Move;
+import chess.Board;
 public class King extends Piece {
     //if the king has moved, it can't castle
     boolean hasMoved = false;
@@ -16,8 +18,7 @@ public class King extends Piece {
     }
 
     @Override
-    public String[] legalMoves(Field[][] board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");
+    public LinkedList<Move> legalMoves(Board board, int x, int y) {
+        return new LinkedList<Move>();
     }
 }

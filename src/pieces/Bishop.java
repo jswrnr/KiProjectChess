@@ -1,6 +1,8 @@
 package pieces;
 
-import chess.Field;
+import chess.Move;
+import java.util.LinkedList;
+import chess.Board;
 
 public class Bishop extends Piece {
     public Bishop(boolean white) {
@@ -13,8 +15,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public String[] legalMoves(Field[][] board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'legalMoves'");
+    public LinkedList<Move> legalMoves(Board board, int x, int y) {
+        return new LinkedList<Move>();
     }
 }

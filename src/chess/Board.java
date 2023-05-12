@@ -11,15 +11,14 @@ public class Board {
     public Board (String fen) {
 
         // initialize the board with empty Fields
-        this.board = createDefaultBoard();
-
-        if (fen != null) {
-            this.board = createBoardFromFen(fen);
-        }
+        this.board = createEmptyBoard();
+        // if a fen string is provided, set the pieces on the board according to the fen string
+        // if no fen string is provided, the board will be initialized with the default starting position
+        this.board = fillBoardWithFen(fen, this.board);
     }
 
     // return a 8x8 Field array with all piece values set to null
-    private Field[][] createDefaultBoard() {
+    private Field[][] createEmptyBoard() {
         Field[][] board = new Field[8][8];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -29,9 +28,12 @@ public class Board {
         return board;
     } 
 
-    private Field[][] createBoardFromFen(String fen) {
+    private Field[][] fillBoardWithFen(String fen, Field[][] board) {
+        //if no fen string is provided, use the default starting position
+        if (fen == null) {
+            fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+        }
         //split fen string so we only use the part that describes the pieces
-        Field[][] board = createDefaultBoard();
         System.out.println(fen);
         fen = fen.split(" ")[0];
         //take the fen string and replace every number with the corresponding amount of empty fields
@@ -63,7 +65,7 @@ public class Board {
                     //if i is less than 8, we are on the first line, so we dont need to divide by 8
                     //if i is greater than 8, we need to divide by 8 to get the correct line
                     x = i>8 ? (i-y) / 8 : 0;
-                    p = getPieceFromFenChar(c, x, y);
+                    p = Piece.getPieceFromChar(c);
                     //looks stupid. fix later
                     board[x][y].setPiece(p);
                 } catch (IncorrectFenException e) {
@@ -74,40 +76,16 @@ public class Board {
         return board;
     }
 
-    private Piece getPieceFromFenChar(char c, int x, int y) throws IncorrectFenException {
-        //take a single character and return the corresponding piece
-        switch (c) {
-            case 'p':
-                return new Pawn(false);
-            case 'P':
-                return new Pawn(true);
-            case 'r':
-                return new Rook(false);
-            case 'R':
-                return new Rook(true);
-            case 'n':
-                return new Knight(false);
-            case 'N':
-                return new Knight(true);
-            case 'b':
-                return new Bishop(false);
-            case 'B':
-                return new Bishop(true);
-            case 'q':
-                return new Queen(false);
-            case 'Q':
-                return new Queen(true);
-            case 'k':
-                return new King(false);
-            case 'K':
-                return new King(true);
-            default:
-                throw new IncorrectFenException("the provided character doesnt correspond to a piece");
-        }
-    }
-
     public Field[][] getBoard() {
         return board;
+    }
+
+    public Field getField(int x, int y) {
+        return board[x][y];
+    }
+
+    public boolean onBoard(int x, int y) {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
     @Override
@@ -117,8 +95,20 @@ public class Board {
             for (Field f : row) {
                 s += f.toString();
             }
-            s += "\n";
+            //after each row, add a slash
+            s += "/";
         }
+        //remove the last slash
+        s = s.substring(0, s.length()-1);
+        //replace groups of zeros with the number of zeros
+        s = s.replaceAll("0{8}", "8");
+        s = s.replaceAll("0{7}", "7");
+        s = s.replaceAll("0{6}", "6");
+        s = s.replaceAll("0{5}", "5");
+        s = s.replaceAll("0{4}", "4");
+        s = s.replaceAll("0{3}", "3");
+        s = s.replaceAll("0{2}", "2");
+        s = s.replaceAll("0{1}", "1");
         return s;
     }
 }
