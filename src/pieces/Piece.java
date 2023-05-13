@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import Exceptions.IncorrectFenException;
 public abstract class Piece {
     protected boolean white;
+    protected boolean hasMoved = false;
 
     public Piece(boolean white) {
         this.white = white;
@@ -15,6 +16,10 @@ public abstract class Piece {
 
     public boolean isWhite() {
         return this.white;
+    }
+
+    public boolean hasMoved() {
+        return this.hasMoved;
     }
 
     abstract public LinkedList<Move> legalMoves(Board board, int x, int y);

@@ -37,9 +37,9 @@ public class Pawn extends Piece {
             }
             //move up two if there is no piece there and the pawn hasn't moved
             if (board.onBoard(x-2, y)
+                && board.getField(x-1, y).getPiece() == null
                 && board.getField(x-2, y).getPiece() == null
-                && board.getField(x-2, y).getPiece() == null
-                && y == 6) {
+                && this.hasMoved == false) {
                 moves.add(new Move(new int[]{x, y} , new int[] {x-2, y}, this.white ? 'P' : 'p'));
             }
         } else {
