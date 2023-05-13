@@ -19,11 +19,12 @@ public class Bishop extends Piece {
         LinkedList<Move> moves = new LinkedList<Move>();
         //SouthWest
         for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--){
-            if(board.getField(i, j).getPiece() != null){
+            if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
             }
             else if(board.getField(i, j).getPiece().isWhite() != this.white){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
+                break;
             }
             else{
                 break;
@@ -31,11 +32,12 @@ public class Bishop extends Piece {
         }
         //SouthEast
         for(int i = x + 1, j = y - 1; i <= 7 && j >= 0; i++, j--){
-            if(board.getField(i, j).getPiece() != null){
+            if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
             }
             else if(board.getField(i, j).getPiece().isWhite() != this.white){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
+                break;
             }
             else{
                 break;
@@ -43,11 +45,12 @@ public class Bishop extends Piece {
         }
         //NorthEast
         for(int i = x + 1, j = y + 1; i <= 7 && j <= 7; i++, j++){
-            if(board.getField(i, j).getPiece() != null){
+            if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
             }
             else if(board.getField(i, j).getPiece().isWhite() != this.white){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
+                break;
             }
             else{
                 break;
@@ -55,11 +58,12 @@ public class Bishop extends Piece {
         }
         //NorthWest
         for(int i = x - 1, j = y + 1; i >= 0 && j <= 7; i--, j++){
-            if(board.getField(i, j).getPiece() != null){
+            if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
             }
             else if(board.getField(i, j).getPiece().isWhite() != this.white){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
+                break;
             }
             else{
                 break;
