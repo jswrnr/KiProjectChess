@@ -1,6 +1,8 @@
 package pieces;
 
 import chess.Move;
+
+import java.util.Arrays;
 import java.util.LinkedList;
 import chess.Board;
 public class Knight extends Piece {
@@ -17,61 +19,19 @@ public class Knight extends Piece {
     @Override
     public LinkedList<Move> legalMoves(Board board, int x, int y) {
         LinkedList<Move> moves = new LinkedList<Move>();
-        //North
-        for(int i = y - 1; i >= 0; i--){
-            if(board.getField(x, i).getPiece() == null){
-                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
-            }
-            else if(board.getField(x, i).getPiece().isWhite() != this.white){
-                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
-                break;
-            }
-            else{
-                break;
-            }
-        }
-        //South
-        for(int i = y + 1; i <= 7; i++){
-            if(board.getField(x, i).getPiece() == null){
-                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
-            }
-            else if(board.getField(x, i).getPiece().isWhite() != this.white){
-                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
-                break;
-            }
-            else{
-                break;
-            }
-        }
-        //East
-        for(int i = x + 1; i <= 7; i++){
-            if(board.getField(i, y).getPiece() == null){
-                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
-            }
-            else if(board.getField(i, y).getPiece().isWhite() != this.white){
-                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
-                break;
-            }
-            else{
-                break;
-            }
-        }
-        //West
-        for(int i = x - 1; i >= 0; i--){
-            if(board.getField(i, y).getPiece() == null){
-                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
-            }
-            else if(board.getField(i, y).getPiece().isWhite() != this.white){
-                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
-                break;
-            }
-            else{
-                break;
-            }
+        //generate all possible moves
+        int[][] possibleMoves = {{x-2, y-1}, {x-2, y+1}, {x-1, y-2}, {x-1, y+2}, {x+1, y-2}, {x+1, y+2}, {x+2, y-1}, {x+2, y+1}};
+        possibleMoves = Arrays.stream(possibleMoves)
+            //filter moves that are off the board
+            .filter(move -> board.onBoard(move[0], move[1]))
+            //filter moves that are blocked by a piece of the same color
+            .filter(move -> board.getField(move[0], move[1]).getPiece() == null || board.getField(move[0], move[1]).getPiece().isWhite() != this.white)
+            .toArray(int[][]::new);
+        
+        //add all possible moves to the list
+        for(int[] move : possibleMoves){
+            moves.add(new Move(new int[]{x,y}, move, this.white ? 'N' : 'n'));
         }
         return moves;
-        
-
-        // TODO: Castle?
     }
 }

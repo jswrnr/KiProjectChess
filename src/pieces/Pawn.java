@@ -44,10 +44,10 @@ public class Pawn extends Piece {
             }
         } else {
             //move down and left if there is a piece there
-            if (board.onBoard(x-1, y+1)
-                && board.getField(x-1, y+1).getPiece() != null
-                && board.getField(x-1, y+1).getPiece().isWhite() != this.white) {
-                moves.add(new Move(new int[]{x, y} , new int[] {(x-1), (y+1)}, this.white ? 'P' : 'p'));
+            if (board.onBoard(x+1, y-1)
+                && board.getField(x+1, y-1).getPiece() != null
+                && board.getField(x+1, y-1).getPiece().isWhite() != this.white) {
+                moves.add(new Move(new int[]{x, y} , new int[] {x+1, y-1}, this.white ? 'P' : 'p'));
                 }
             //move down and right if there is a piece there
             if (board.onBoard(x+1, y+1)
@@ -56,16 +56,16 @@ public class Pawn extends Piece {
                 moves.add(new Move(new int[]{x, y} , new int[] {(x+1), (y+1)}, this.white ? 'P' : 'p'));
             }
             //move down if there is no piece there
-            if (board.onBoard(x, y+1)
-                && board.getField(x, y+1) == null) {
-                moves.add(new Move(new int[]{x, y} , new int[] {x, (y+1)}, this.white ? 'P' : 'p'));
+            if (board.onBoard(x+1, y)
+                && board.getField(x+1, y) == null) {
+                moves.add(new Move(new int[]{x, y} , new int[] {x+1, y}, this.white ? 'P' : 'p'));
             }
             //move down two if there is no piece there and the pawn hasn't moved
-            if (board.onBoard(x, y+2)
-                && board.getField(x, y+2) == null
-                && board.getField(x, y+1) == null
-                && y == 1) {
-                moves.add(new Move(new int[]{x, y} , new int[] {x, (y+2)}, this.white ? 'P' : 'p'));
+            if (board.onBoard(x+2, y)
+                && board.getField(x+2, y) == null
+                && board.getField(x+1, y) == null
+                && this.hasMoved == false) {
+                moves.add(new Move(new int[]{x, y} , new int[] {x+2, y}, this.white ? 'P' : 'p'));
             }
         }
         return moves;
