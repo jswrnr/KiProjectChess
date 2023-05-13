@@ -22,7 +22,7 @@ public class Board {
         Field[][] board = new Field[8][8];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[j][i] = new Field(j, i, null);
+                board[i][j] = new Field(null);
             }
         }
         return board;
@@ -52,10 +52,7 @@ public class Board {
         int x, y;
         for (int i = 0; i < fen.length(); i++) {
             char c = fen.charAt(i);
-            if (c == '/') {
-                // skip to next line
-                continue;
-            } else if (Character.isDigit(c)) {
+            if (Character.isDigit(c)) {
                 // skip the number of empty fields
                 continue;
             } else {
@@ -73,6 +70,7 @@ public class Board {
                 }
             }
         }
+        System.out.println(board);
         return board;
     }
 

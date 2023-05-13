@@ -3,6 +3,8 @@ package tests;
 import pieces.Pawn;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import chess.Move;
+import java.util.LinkedList;
 
 import chess.Board;
 
@@ -10,10 +12,10 @@ public class PawnMoveTest {
     Pawn pawn = new Pawn(true);
     @Test
     public void testPawnMove() {
-        //create a FEN string with only a white pawn at a1
-        String FEN = "8/8/8/8/8/8/P7/8";
-        Board board = new Board(FEN);
-        //test that the pawn can move up one space
-        assertEquals(2, pawn.legalMoves(board, 0, 6).size());
+        Board board = new Board();
+        //test that the pawn has 2 moves in default board setup
+        LinkedList<Move> moves = pawn.legalMoves(board, 6, 0);
+        String str = moves.stream().map(a -> a.toString()).reduce("", String::concat);
+        assertEquals(str, 2, moves.size());
     }
 }

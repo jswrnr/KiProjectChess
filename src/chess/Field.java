@@ -2,13 +2,9 @@ package chess;
 import pieces.Piece;
 
 public class Field {
-    private int x;
-    private int y;
     private Piece piece;  
 
-    public Field(int x, int y, Piece piece) {
-        this.x = x;
-        this.y = y;
+    public Field(Piece piece) {
         this.piece = piece;
     }
 

@@ -25,22 +25,22 @@ public class Pawn extends Piece {
                 moves.add(new Move(new int[]{x, y} , new int[] {(x-1), (y-1)}, this.white ? 'P' : 'p'));
             }
             //move up and right if there is a piece there
-            if (board.onBoard(x+1, y-1) 
-                && board.getField(x+1, y-1).getPiece() != null
-                && board.getField(x+1, y-1).getPiece().isWhite() != this.white) {
+            if (board.onBoard(x-1, y+1) 
+                && board.getField(x-1, y+1).getPiece() != null
+                && board.getField(x-1, y+1).getPiece().isWhite() != this.white) {
                 moves.add(new Move(new int[]{x, y} , new int[] {(x+1), (y-1)}, this.white ? 'P' : 'p'));
             }
             //move up if there is no piece there
-            if (board.onBoard(x, y-1)
-                && board.getField(x, y-1).getPiece() == null) {
-                moves.add(new Move(new int[]{x, y} , new int[] {x, (y-1)}, this.white ? 'P' : 'p'));
+            if (board.onBoard(x-1, y)
+                && board.getField(x-1, y).getPiece() == null) {
+                moves.add(new Move(new int[]{x, y} , new int[] {x-1, (y)}, this.white ? 'P' : 'p'));
             }
             //move up two if there is no piece there and the pawn hasn't moved
-            if (board.onBoard(x, y-2)
-                && board.getField(x, y-2).getPiece() == null
-                && board.getField(x, y-1).getPiece() == null
+            if (board.onBoard(x-2, y)
+                && board.getField(x-2, y).getPiece() == null
+                && board.getField(x-2, y).getPiece() == null
                 && y == 6) {
-                moves.add(new Move(new int[]{x, y} , new int[] {x, (y-2)}, this.white ? 'P' : 'p'));
+                moves.add(new Move(new int[]{x, y} , new int[] {x-2, y}, this.white ? 'P' : 'p'));
             }
         } else {
             //move down and left if there is a piece there
