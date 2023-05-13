@@ -16,6 +16,58 @@ public class Knight extends Piece {
 
     @Override
     public LinkedList<Move> legalMoves(Board board, int x, int y) {
-        return new LinkedList<Move>();
+        LinkedList<Move> moves = new LinkedList<Move>();
+        //North
+        for(int i = y - 1; i >= 0; i--){
+            if(board.getField(x, i).getPiece() != null){
+                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
+            }
+            else if(board.getField(x, i).getPiece().isWhite() != this.white){
+                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
+            }
+            else{
+                break;
+            }
+        }
+        //South
+        for(int i = y + 1; i <= 7; i++){
+            if(board.getField(x, i).getPiece() != null){
+                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
+            }
+            else if(board.getField(x, i).getPiece().isWhite() != this.white){
+                moves.add(new Move(new int[]{x,y}, new int[]{x,i}, this.white ? 'K' : 'k'));
+            }
+            else{
+                break;
+            }
+        }
+        //East
+        for(int i = x + 1; i <= 7; i++){
+            if(board.getField(i, y).getPiece() != null){
+                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
+            }
+            else if(board.getField(i, y).getPiece().isWhite() != this.white){
+                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
+            }
+            else{
+                break;
+            }
+        }
+        //West
+        for(int i = x - 1; i >= 0; i--){
+            if(board.getField(i, y).getPiece() != null){
+                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
+            }
+            else if(board.getField(i, y).getPiece().isWhite() != this.white){
+                moves.add(new Move(new int[]{x,y}, new int[]{i,y}, this.white ? 'K' : 'k'));
+            }
+            else{
+                break;
+            }
+        }
+        return moves;
+        
+
+        // TODO: Castle?
     }
 }
