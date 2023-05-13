@@ -15,7 +15,6 @@ public class PawnMoveTest {
         Board board = new Board();
         //test that the pawn has 2 moves in default board setup
         LinkedList<Move> moves = pawn.legalMoves(board, 6, 0);
-        String str = moves.stream().map(a -> a.toString()).reduce("", String::concat);
-        assertEquals(str, 2, moves.size());
+        assertEquals(moves.toString(), 2, moves.size());
     }
 }

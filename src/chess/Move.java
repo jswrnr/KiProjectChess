@@ -25,6 +25,6 @@ public class Move {
 
     @Override
     public String toString() {
-        return from.toString() + to.toString();
+        return movingPiece + " [" + from[0] + ", " + from[1] + "] [" + to[0] + ", " + to[1] + "]";
     }
 }
