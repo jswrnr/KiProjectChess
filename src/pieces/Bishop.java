@@ -17,7 +17,7 @@ public class Bishop extends Piece {
     @Override
     public LinkedList<Move> legalMoves(Board board, int x, int y) {
         LinkedList<Move> moves = new LinkedList<Move>();
-        //SouthWest
+        //NorthWest
         for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--){
             if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
@@ -30,7 +30,7 @@ public class Bishop extends Piece {
                 break;
             }
         }
-        //SouthEast
+        //SouthWest
         for(int i = x + 1, j = y - 1; i <= 7 && j >= 0; i++, j--){
             if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
@@ -43,7 +43,7 @@ public class Bishop extends Piece {
                 break;
             }          
         }
-        //NorthEast
+        //SouthEast
         for(int i = x + 1, j = y + 1; i <= 7 && j <= 7; i++, j++){
             if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));
@@ -56,7 +56,7 @@ public class Bishop extends Piece {
                 break;
             }  
         }
-        //NorthWest
+        //NorthEast
         for(int i = x - 1, j = y + 1; i >= 0 && j <= 7; i--, j++){
             if(board.getField(i, j).getPiece() == null){
                 moves.add(new Move(new int[]{x,y}, new int[]{i,j}, this.white ? 'B' : 'b'));

@@ -27,6 +27,15 @@ public class Knight extends Piece {
             //filter moves that are blocked by a piece of the same color
             .filter(move -> board.getField(move[0], move[1]).getPiece() == null || board.getField(move[0], move[1]).getPiece().isWhite() != this.white)
             .toArray(int[][]::new);
+
+        //generate all possible moves if pinned (if piece is not pinned -> pinMoves = null)
+        int[][] pinMoves = this.pinnedMoves(board, x, y);
+        if(pinMoves != null) {
+            possibleMoves = Arrays.stream(possibleMoves)
+                //filter moves that are not legal for pinned piece
+                .filter(move -> Arrays.stream(pinMoves).anyMatch(move::equals))
+                .toArray(int[][]::new);
+        }
         
         //add all possible moves to the list
         for(int[] move : possibleMoves){
