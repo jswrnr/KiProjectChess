@@ -3,6 +3,8 @@ import pieces.*;
 import Exceptions.IncorrectFenException;
 public class Board {
     private Field[][] board;
+    int[] whiteKingPosition = new int[]{7, 4};
+    int[] blackKingPosition = new int[]{0, 4};
 
     public Board () {
         this(null);
