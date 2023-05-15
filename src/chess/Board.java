@@ -65,7 +65,6 @@ public class Board {
                     //if i is greater than 8, we need to divide by 8 to get the correct line
                     y = i>8 ? (i-x) / 8 : 0;
                     p = Piece.getPieceFromChar(c);
-                    //looks stupid. fix later
                     board[y][x].setPiece(p);
                 } catch (IncorrectFenException e) {
                     System.out.println(e.getMessage());
@@ -80,8 +79,8 @@ public class Board {
         return board;
     }
 
-    public Field getField(int x, int y) {
-        return board[x][y];
+    public Field getField(int y, int x) {
+        return board[y][x];
     }
 
     public boolean onBoard(int x, int y) {

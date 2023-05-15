@@ -1,10 +1,8 @@
 package chess;
-import enums.Gamestate;
 
 public class GameManager {
     private Board board;
     //not tracked right now
-    private Gamestate gamestate = Gamestate.WHITESTURN;
     private boolean whitesTurn;
     private int fullMoveCounter;
     private int halfMoveCounter;
@@ -26,9 +24,30 @@ public class GameManager {
             this.whitesTurn = fenParts.length>0 ? fenParts[1].equals("w") : true;
             this.canWhiteCastle = fenParts.length>1 ? fenParts[2] : "K" + "Q";
             this.canBlackCastle = fenParts.length>1 ? fenParts[3] : "k" + "q";
+            //set hasMoved for the rooks and king
+            if (canWhiteCastle.contains("K")) {
+                board.getField(7, 7).getPiece().setHasMoved(false);
+                board.getField(7, 4).getPiece().setHasMoved(false);
+            }
+            if (canWhiteCastle.contains("Q")) {
+                board.getField(7, 0).getPiece().setHasMoved(false);
+                board.getField(7, 4).getPiece().setHasMoved(false);
+            }
+            if (canBlackCastle.contains("k")) {
+                board.getField(0, 7).getPiece().setHasMoved(false);
+                board.getField(0, 4).getPiece().setHasMoved(false);
+            }
+            if (canBlackCastle.contains("q")) {
+                board.getField(0, 0).getPiece().setHasMoved(false);
+                board.getField(0, 4).getPiece().setHasMoved(false);
+            }
             this.halfMoveCounter = fenParts.length>3 ? Integer.parseInt(fenParts[4]) : 0;
             this.fullMoveCounter = fenParts.length>4 ? Integer.parseInt(fenParts[5]) : 1;
         }
+    }
+
+    public void play() {
+
     }
 
     @Override
