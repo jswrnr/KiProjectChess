@@ -1,6 +1,7 @@
 package chess;
 import pieces.*;
 import Exceptions.IncorrectFenException;
+import java.util.LinkedList;
 public class Board {
     private Field[][] board;
     int[] whiteKingPosition = new int[]{7, 4};
@@ -92,6 +93,21 @@ public class Board {
         this.board[move.getTo()[0]][move.getTo()[1]].setPiece(this.board[move.getFrom()[0]][move.getFrom()[1]].getPiece());
         this.board[move.getFrom()[0]][move.getFrom()[1]].setPiece(null);
         this.board[move.getTo()[0]][move.getTo()[1]].getPiece().setHasMoved(true);
+    }
+
+    public Move[] getLegalMoves(char player) {
+        boolean whitePlayer = player == 'w';
+        //get all legal moves for a player
+        LinkedList<Move> moves = new LinkedList<Move>();
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                Field f = this.board[i][j];
+                if (!f.isEmpty() && f.getPiece().isWhite() == whitePlayer) {
+                    moves.addAll(f.getPiece().legalMoves(this, i, j));
+                }
+            }
+        }
+        return moves.toArray(new Move[moves.size()]);
     }
 
     @Override

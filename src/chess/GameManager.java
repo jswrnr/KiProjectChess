@@ -47,7 +47,33 @@ public class GameManager {
     }
 
     public void play() {
-
+        //play a game of chess
+        boolean gameOver = false;
+        while (!gameOver) {
+            Move[] moves = board.getLegalMoves(whitesTurn ? 'w' : 'b');
+            if (moves.length == 0) {
+                gameOver = true;
+                System.out.println("Game over");
+                if (true) {
+                    //still need to check if checkmate or stalemate
+                    System.out.println("Checkmate");
+                } else {
+                    System.out.println("Stalemate");
+                }
+            } else {
+                Move move = moves[(int) (Math.random() * moves.length)];
+                board.movePiece(move);
+                System.out.println(move);
+                System.out.println(board);
+                whitesTurn = !whitesTurn;
+            }
+            //increase the half move counter
+            halfMoveCounter++;
+            //increase the full move counter
+            if (!whitesTurn) {
+                fullMoveCounter++;
+            }
+        }
     }
 
     @Override
