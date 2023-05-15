@@ -88,6 +88,13 @@ public class Board {
         return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
 
+    public void movePiece(Move move) {
+        //move a piece from one field to another
+        this.board[move.getTo()[0]][move.getTo()[1]].setPiece(this.board[move.getFrom()[0]][move.getFrom()[1]].getPiece());
+        this.board[move.getFrom()[0]][move.getFrom()[1]].setPiece(null);
+        this.board[move.getTo()[0]][move.getTo()[1]].getPiece().setHasMoved(true);
+    }
+
     @Override
     public String toString() {
         String s = "";

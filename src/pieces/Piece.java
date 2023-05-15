@@ -22,6 +22,10 @@ public abstract class Piece {
         return this.hasMoved;
     }
 
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+    
     abstract public LinkedList<Move> legalMoves(Board board, int x, int y);
 
     public static Piece getPieceFromChar(char c) throws IncorrectFenException {
