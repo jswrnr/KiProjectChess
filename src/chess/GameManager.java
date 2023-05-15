@@ -1,5 +1,7 @@
 package chess;
 
+import ai.Evaluator;
+
 public class GameManager {
     private Board board;
     //not tracked right now
@@ -48,6 +50,7 @@ public class GameManager {
 
     public void play() {
         //play a game of chess
+        Evaluator evaluator = new Evaluator();
         boolean gameOver = false;
         while (!gameOver) {
             Move[] moves = board.getLegalMoves(whitesTurn ? 'w' : 'b');
@@ -61,7 +64,7 @@ public class GameManager {
                     System.out.println("Stalemate");
                 }
             } else {
-                Move move = moves[(int) (Math.random() * moves.length)];
+                Move move = evaluator.chooseMove(moves);
                 board.movePiece(move);
                 System.out.println(move);
                 System.out.println(board);
