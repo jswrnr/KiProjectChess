@@ -3,6 +3,7 @@ package pieces;
 import chess.Board;
 import chess.Move;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import java.lang.Math;
@@ -28,16 +29,15 @@ public abstract class Piece {
         this.hasMoved = hasMoved;
     }
 
-    public int[][] pinnedMoves(Board board, int x, int y) {
-        int[][] pinMoves = new int[0][];
-        int counter = 0;
+    public ArrayList<int[]> pinnedMoves(Board board, int x, int y) {
+        ArrayList<int[]> pinMoves = new ArrayList<>();
         int KingX = 0;
         int KingY = 0;
         int xStep = 0;
         int yStep = 0;
         boolean diagonal = false;
 
-        if(this.isWhite()) {
+        if(this.white) {
             KingX = board.getWhiteKingPosition()[0];
             KingY = board.getWhiteKingPosition()[1];
         }
@@ -81,10 +81,9 @@ public abstract class Piece {
             return null;
         }
 
-        for(int i = x + xStep, j = y + yStep; i != KingX && j != KingY; i =+ xStep, j =+ yStep){
+        for(int i = x + xStep, j = y + yStep; i != KingX && j != KingY; i += xStep, j += yStep){
             if(board.getField(i, j).getPiece() == null) {
-                pinMoves[counter] = new int[]{i,j};
-                counter++;
+                pinMoves.add(new int[]{i,j});
             }
             else {
                 return null;
@@ -93,27 +92,30 @@ public abstract class Piece {
 
         xStep *= -1;
         yStep *= -1;
-        for(int i = x + xStep, j = y + yStep; i != -1 && i != 8 && j != -1 && j != 8; i =+ xStep, j =+ yStep) {
+        for(int i = x + xStep, j = y + yStep; i != -1 && i != 8 && j != -1 && j != 8; i += xStep, j += yStep) {
             if(diagonal) {
                 if(board.getField(i, j).getPiece() == null) {
-                    pinMoves[counter] = new int[]{i,j};
-                    counter++;
+                    pinMoves.add(new int[]{i,j});
+                    if(i == 0 || i == 7 || j == 0 || j == 7){
+                        return null;
+                    }
                 }
-                else if((board.getField(i, j).getPiece() instanceof Bishop && board.getField(i, j).getPiece().white != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().white != this.white)){
-                    //return pinMoves;
+                else if((board.getField(i, j).getPiece() instanceof Bishop && board.getField(i, j).getPiece().isWhite() != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().isWhite() != this.white)){
                     break;
                 }
                 else {
                     return null;
                 }
+
             }
             else {
                 if(board.getField(i, j).getPiece() == null) {
-                    pinMoves[counter] = new int[]{i,j};
-                    counter++;
+                    pinMoves.add(new int[]{i,j});
+                    if(i == 0 || i == 7 || j == 0 || j == 7){
+                        return null;
+                    }
                 }
-                else if((board.getField(i, j).getPiece() instanceof Rook && board.getField(i, j).getPiece().white != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().white != this.white)){
-                    //return pinMoves;
+                else if((board.getField(i, j).getPiece() instanceof Rook && board.getField(i, j).getPiece().isWhite() != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().isWhite() != this.white)){
                     break;
                 }
                 else {

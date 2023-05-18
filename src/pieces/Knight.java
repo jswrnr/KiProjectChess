@@ -2,6 +2,7 @@ package pieces;
 
 import chess.Move;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import chess.Board;
@@ -29,11 +30,11 @@ public class Knight extends Piece {
             .toArray(int[][]::new);
 
         //generate all possible moves if pinned (if piece is not pinned -> pinMoves = null)
-        int[][] pinMoves = this.pinnedMoves(board, x, y);
+        ArrayList<int[]> pinMoves = this.pinnedMoves(board, x, y);
         if(pinMoves != null) {
             possibleMoves = Arrays.stream(possibleMoves)
                 //filter moves that are not legal for pinned piece
-                .filter(move -> Arrays.stream(pinMoves).anyMatch(move::equals))
+                .filter(move -> pinMoves.stream().anyMatch(pMove -> Arrays.equals(pMove,move)))
                 .toArray(int[][]::new);
         }
         
