@@ -5,8 +5,10 @@ import java.util.LinkedList;
 public class Board {
     private Field[][] board;
     int[] whiteKingPosition = new int[]{7, 4};
+
     int[] blackKingPosition = new int[]{0, 4};
 
+    
     public Board () {
         this(null);
     }
@@ -82,6 +84,14 @@ public class Board {
 
     public Field getField(int y, int x) {
         return board[y][x];
+    }
+
+    public int[] getWhiteKingPosition() {
+        return whiteKingPosition;
+    }
+
+    public int[] getBlackKingPosition() {
+        return blackKingPosition;
     }
 
     public boolean onBoard(int x, int y) {

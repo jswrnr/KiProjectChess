@@ -1,6 +1,10 @@
 package pieces;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 import chess.Board;
 import chess.Move;
 
@@ -121,6 +125,15 @@ public class Queen extends Piece {
             else{
                 break;
             }
+        }
+
+        //generate all possible moves if pinned (if piece is not pinned -> pinMoves = null)
+        ArrayList<int[]> pinMoves = this.pinnedMoves(board, x, y);
+        if(pinMoves != null) {
+            moves = moves.stream()
+                //filter moves that are not legal for pinned piece
+                .filter(move -> pinMoves.stream().anyMatch(pMove -> Arrays.equals(pMove, move.getTo())))
+                .collect(Collectors.toCollection(LinkedList::new));
         }
         return moves;
     }

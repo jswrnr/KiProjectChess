@@ -1,6 +1,10 @@
 package pieces;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 import chess.Move;
 import chess.Board;
 
@@ -68,6 +72,17 @@ public class Pawn extends Piece {
                 moves.add(new Move(new int[]{x, y} , new int[] {x+2, y}, this.white ? 'P' : 'p'));
             }
         }
+
+        //generate all possible moves if pinned (if piece is not pinned -> pinMoves = null)
+        ArrayList<int[]> pinMoves = this.pinnedMoves(board, x, y);
+        if(pinMoves != null) {
+            moves = moves.stream()
+                //filter moves that are not legal for pinned piece
+                .filter(move -> pinMoves.stream().anyMatch(pMove -> Arrays.equals(pMove, move.getTo())))
+                .collect(Collectors.toCollection(LinkedList::new));
+            pinMoves.clear();
+        }
+        
         return moves;
     }
 }
