@@ -129,6 +129,8 @@ public abstract class Piece {
 
     abstract public LinkedList<Move> legalMoves(Board board, int x, int y);
 
+    abstract public boolean[][] attackSquares(Board board, int x, int y);
+
     public static Piece getPieceFromChar(char c) throws IncorrectFenException {
         //take a single character and return the corresponding piece
         switch (c) {

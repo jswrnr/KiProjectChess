@@ -85,4 +85,66 @@ public class Bishop extends Piece {
         }
         return moves;
     }
+    
+    @Override
+    public boolean[][] attackSquares(Board board, int x, int y) {
+        boolean[][] squares = new boolean[8][8];
+        //make all squares false
+        for(boolean[] row : squares){
+            Arrays.fill(row, false);
+        }
+        //NorthWest
+        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--){
+            if(board.getField(i, j).getPiece() == null){
+                squares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                squares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //SouthWest
+        for(int i = x + 1, j = y - 1; i <= 7 && j >= 0; i++, j--){
+            if(board.getField(i, j).getPiece() == null){
+                squares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                squares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //SouthEast
+        for(int i = x + 1, j = y + 1; i <= 7 && j <= 7; i++, j++){
+            if(board.getField(i, j).getPiece() == null){
+                squares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                squares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //NorthEast
+        for(int i = x - 1, j = y + 1; i >= 0 && j <= 7; i--, j++){
+            if(board.getField(i, j).getPiece() == null){
+                squares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                squares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        return squares;
+    }
 }

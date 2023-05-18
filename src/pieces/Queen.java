@@ -137,4 +137,117 @@ public class Queen extends Piece {
         }
         return moves;
     }
+
+    @Override
+    public boolean[][] attackSquares(Board board, int x, int y) {
+        boolean[][] attackSquares = new boolean[8][8];
+        //make all squares false
+        for(int i = 0; i < 8; i++){
+            Arrays.fill(attackSquares[i], false);
+        }
+        for(int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--){
+            if(board.getField(i, j).getPiece() == null){
+                attackSquares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                attackSquares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //SouthEast
+        for(int i = x + 1, j = y - 1; i <= 7 && j >= 0; i++, j--){
+            if(board.getField(i, j).getPiece() == null){
+                attackSquares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                attackSquares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }          
+        }
+        //NorthEast
+        for(int i = x + 1, j = y + 1; i <= 7 && j <= 7; i++, j++){
+            if(board.getField(i, j).getPiece() == null){
+                attackSquares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                attackSquares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }  
+        }
+        //NorthWest
+        for(int i = x - 1, j = y + 1; i >= 0 && j <= 7; i--, j++){
+            if(board.getField(i, j).getPiece() == null){
+                attackSquares[i][j] = true;
+            }
+            else if(board.getField(i, j).getPiece().isWhite() != this.white){
+                attackSquares[i][j] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //North
+        for(int i = y - 1; i >= 0; i--){
+            if(board.getField(x, i).getPiece() == null){
+                attackSquares[x][i] = true;
+            }
+            else if(board.getField(x, i).getPiece().isWhite() != this.white){
+                attackSquares[x][i] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //South
+        for(int i = y + 1; i <= 7; i++){
+            if(board.getField(x, i).getPiece() == null){
+                attackSquares[x][i] = true;
+            }
+            else if(board.getField(x, i).getPiece().isWhite() != this.white){
+                attackSquares[x][i] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //East
+        for(int i = x + 1; i <= 7; i++){
+            if(board.getField(i, y).getPiece() == null){
+                attackSquares[i][y] = true;
+            }
+            else if(board.getField(i, y).getPiece().isWhite() != this.white){
+                attackSquares[i][y] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        //West
+        for(int i = x - 1; i >= 0; i--){
+            if(board.getField(i, y).getPiece() == null){
+                attackSquares[i][y] = true;
+            }
+            else if(board.getField(i, y).getPiece().isWhite() != this.white){
+                attackSquares[i][y] = true;
+                break;
+            }
+            else{
+                break;
+            }
+        }
+        return attackSquares;
+    }
 }

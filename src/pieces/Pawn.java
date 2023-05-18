@@ -85,4 +85,41 @@ public class Pawn extends Piece {
         
         return moves;
     }
+
+    @Override
+    public boolean[][] attackSquares(Board board, int x, int y) {
+        boolean[][] attackSquares = new boolean[8][8];
+        //make all squares false
+        for(int i = 0; i < 8; i++){
+            Arrays.fill(attackSquares[i], false);
+        }
+        if (this.white) {
+            //move up and left if there is a piece there
+            if (board.onBoard(x-1, y-1) 
+                && board.getField(x-1, y-1).getPiece() != null 
+                && board.getField(x-1, y-1).getPiece().isWhite() != this.white) {
+                attackSquares[x-1][y-1] = true;
+            }
+            //move up and right if there is a piece there
+            if (board.onBoard(x-1, y+1) 
+                && board.getField(x-1, y+1).getPiece() != null
+                && board.getField(x-1, y+1).getPiece().isWhite() != this.white) {
+                attackSquares[x-1][y+1] = true;
+            }
+        } else {
+            //move down and left if there is a piece there
+            if (board.onBoard(x+1, y-1)
+                && board.getField(x+1, y-1).getPiece() != null
+                && board.getField(x+1, y-1).getPiece().isWhite() != this.white) {
+                attackSquares[x+1][y-1] = true;
+                }
+            //move down and right if there is a piece there
+            if (board.onBoard(x+1, y+1)
+                && board.getField(x+1, y+1).getPiece() != null
+                && board.getField(x+1, y+1).getPiece().isWhite() != this.white) {
+                attackSquares[x+1][y+1] = true;
+            }
+        }
+        return attackSquares;
+    }
 }
