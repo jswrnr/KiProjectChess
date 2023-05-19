@@ -65,7 +65,7 @@ public class GameManager {
             //this is not the most efficient way to do this, but it is the easiest
             moves = Arrays.stream(moves)
                 .filter(move -> {
-                    Board copy = board.;
+                    Board copy = new Board(board);
                     copy.movePiece(move);
                     return !copy.isKingInCheck(whitesTurn ? 'w' : 'b');
                 })
@@ -74,7 +74,7 @@ public class GameManager {
             if (moves.length == 0) {
                 gameOver = true;
                 System.out.println("Game over");
-                if (true) {
+                if (board.isKingInCheck(whitesTurn ? 'w' : 'b')) {
                     //still need to check if checkmate or stalemate
                     System.out.println("Checkmate");
                 } else {

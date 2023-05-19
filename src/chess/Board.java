@@ -157,7 +157,7 @@ public class Board {
     return attackSquares;
     }
 
-    public boolean isCheck(char player) {
+    public boolean isKingInCheck(char player) {
         //check if a player is in check
         boolean whitePlayer = player == 'w';
         int[] kingPosition = whitePlayer ? this.whiteKingPosition : this.blackKingPosition;
