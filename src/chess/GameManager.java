@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.Arrays;
+
 import ai.Evaluator;
 
 public class GameManager {
@@ -54,6 +56,21 @@ public class GameManager {
         boolean gameOver = false;
         while (!gameOver) {
             Move[] moves = board.getLegalMoves(whitesTurn ? 'w' : 'b');
+            //filter moves by creating a new board for each move and checking if the king is in check
+            //first copy the board
+            //then make the move
+            //then check if the king is in check
+            //if the king is in check, remove the move from the list
+            //if the king is not in check, add the move to the list
+            //this is not the most efficient way to do this, but it is the easiest
+            moves = Arrays.stream(moves)
+                .filter(move -> {
+                    Board copy = board.;
+                    copy.movePiece(move);
+                    return !copy.isKingInCheck(whitesTurn ? 'w' : 'b');
+                })
+                .toArray(Move[]::new);
+
             if (moves.length == 0) {
                 gameOver = true;
                 System.out.println("Game over");

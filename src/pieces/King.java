@@ -37,7 +37,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean[][] attackSquares(Board board, int x, int y) {
+    public boolean[][] getAttackSquares(Board board, int x, int y) {
         boolean[][] attackSquares = new boolean[8][8];
         //make all squares false
         for(int i = 0; i < 8; i++){

@@ -87,7 +87,7 @@ public class Bishop extends Piece {
     }
     
     @Override
-    public boolean[][] attackSquares(Board board, int x, int y) {
+    public boolean[][] getAttackSquares(Board board, int x, int y) {
         boolean[][] squares = new boolean[8][8];
         //make all squares false
         for(boolean[] row : squares){

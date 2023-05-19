@@ -8,9 +8,18 @@ public class Board {
 
     int[] blackKingPosition = new int[]{0, 4};
 
-    
+    //copy constructor
+    public Board (Board board) {
+        this.board = new Field[8][8];
+        for (int i = 0; i < board.getBoard().length; i++) {
+            for (int j = 0; j < board.getBoard()[0].length; j++) {
+                this.board[i][j] = new Field(board.getBoard()[i][j].getPiece());
+            }
+        }
+    }
+
     public Board () {
-        this(null);
+        this("");
     }
 
     public Board (String fen) {
@@ -35,7 +44,7 @@ public class Board {
 
     private Field[][] fillBoardWithFen(String fen, Field[][] board) {
         //if no fen string is provided, use the default starting position
-        if (fen == null) {
+        if (fen == "") {
             fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
         }
         //split fen string so we only use the part that describes the pieces
@@ -118,6 +127,42 @@ public class Board {
             }
         }
         return moves.toArray(new Move[moves.size()]);
+    }
+
+    public boolean[][] getAttackSquares(char player) {
+        boolean whitePlayer = player == 'w';
+        //get all squares that are attacked by a player
+        boolean[][] attackSquares = new boolean[8][8];
+        for (int i = 0; i < attackSquares.length; i++) {
+            for (int j = 0; j < attackSquares[0].length; j++) {
+                attackSquares[i][j] = false;
+            }
+        }
+
+        //iterate over board and add all attack squares to the attackSquares array
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                Field f = this.board[i][j];
+                if (!f.isEmpty() && f.getPiece().isWhite() == whitePlayer) {
+                    boolean[][] pieceAttackSquares = f.getPiece().getAttackSquares(this, i, j);
+                    //add all attack squares to the attackSquares array
+                    for (int k = 0; k < attackSquares.length; k++) {
+                        for (int l = 0; l < attackSquares[0].length; l++) {
+                            attackSquares[k][l] = attackSquares[k][l] || pieceAttackSquares[k][l];
+                        }
+                    }
+                }
+            }
+        }
+    return attackSquares;
+    }
+
+    public boolean isCheck(char player) {
+        //check if a player is in check
+        boolean whitePlayer = player == 'w';
+        int[] kingPosition = whitePlayer ? this.whiteKingPosition : this.blackKingPosition;
+        boolean[][] attackSquares = this.getAttackSquares(whitePlayer ? 'b' : 'w');
+        return attackSquares[kingPosition[0]][kingPosition[1]];
     }
 
     @Override
