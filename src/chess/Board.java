@@ -91,8 +91,8 @@ public class Board {
         return board;
     }
 
-    public Field getField(int y, int x) {
-        return board[y][x];
+    public Field getField(int x, int y) {
+        return board[x][y];
     }
 
     public int[] getWhiteKingPosition() {
@@ -112,6 +112,14 @@ public class Board {
         this.board[move.getTo()[0]][move.getTo()[1]].setPiece(this.board[move.getFrom()[0]][move.getFrom()[1]].getPiece());
         this.board[move.getFrom()[0]][move.getFrom()[1]].setPiece(null);
         this.board[move.getTo()[0]][move.getTo()[1]].getPiece().setHasMoved(true);
+        //update the king position if the king moved
+        if (this.board[move.getTo()[0]][move.getTo()[1]].getPiece() instanceof King) {
+            if (this.board[move.getTo()[0]][move.getTo()[1]].getPiece().isWhite()) {
+                this.whiteKingPosition = move.getTo();
+            } else {
+                this.blackKingPosition = move.getTo();
+            }
+        }
     }
 
     public Move[] getLegalMoves(char player) {

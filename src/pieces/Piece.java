@@ -47,35 +47,15 @@ public abstract class Piece {
         }
 
         if (Math.abs(KingX - x) == Math.abs(KingY - y)) {
-            if(KingX > x) {
-                xStep = 1;
-            }
-            else {
-                xStep = -1;
-            }
-            if(KingY > y) {
-                yStep = 1;
-            }
-            else {
-                yStep = -1;
-            }
+            xStep = KingX > x ? 1 : -1;
+            yStep = KingY > y ? 1 : -1;
             diagonal = true;
         }
         else if(KingX == x) {
-            if(KingY > y) {
-                yStep = 1;
-            }
-            else {
-                yStep = -1;
-            }
+            yStep = KingY > y ? 1 : -1;
         }
         else if(KingY == y) {
-            if(KingX > x) {
-                xStep = 1;
-            }
-            else {
-                xStep = -1;
-            }
+            xStep = KingX > x ? 1 : -1;
         }
         else{
             return null;
@@ -92,38 +72,39 @@ public abstract class Piece {
 
         xStep *= -1;
         yStep *= -1;
-        for(int i = x + xStep, j = y + yStep; i != -1 && i != 8 && j != -1 && j != 8; i += xStep, j += yStep) {
+        for(int i = x + xStep, j = y + yStep; i >=0 && i<8 && j>=0 && j<8; i += xStep, j += yStep) {
             if(diagonal) {
+                //if the field is empty add it to the list
                 if(board.getField(i, j).getPiece() == null) {
                     pinMoves.add(new int[]{i,j});
-                    if(i == 0 || i == 7 || j == 0 || j == 7){
-                        return null;
-                    }
                 }
-                else if((board.getField(i, j).getPiece() instanceof Bishop && board.getField(i, j).getPiece().isWhite() != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().isWhite() != this.white)){
-                    break;
-                }
-                else {
-                    return null;
+                //if the field is occupied by a piece of the opposite color check if it is a bishop or queen
+                else if((board.getField(i, j).getPiece() instanceof Bishop 
+                && board.getField(i, j).getPiece().isWhite() != this.white) 
+                || (board.getField(i, j).getPiece() instanceof Queen 
+                && board.getField(i, j).getPiece().isWhite() != this.white)){
+                    pinMoves.add(new int[]{x,y});
+                    return pinMoves;
                 }
 
             }
             else {
+                //if the field is empty add it to the list
                 if(board.getField(i, j).getPiece() == null) {
                     pinMoves.add(new int[]{i,j});
-                    if(i == 0 || i == 7 || j == 0 || j == 7){
-                        return null;
-                    }
                 }
-                else if((board.getField(i, j).getPiece() instanceof Rook && board.getField(i, j).getPiece().isWhite() != this.white) || (board.getField(i, j).getPiece() instanceof Queen && board.getField(i, j).getPiece().isWhite() != this.white)){
-                    break;
-                }
-                else {
-                    return null;
+                //if the field is occupied by a piece of the opposite color check if it is a rook or queen
+                else if((board.getField(i, j).getPiece() instanceof Rook 
+                && board.getField(i, j).getPiece().isWhite() != this.white) 
+                || (board.getField(i, j).getPiece() instanceof Queen 
+                && board.getField(i, j).getPiece().isWhite() != this.white)){
+                    pinMoves.add(new int[]{x,y});
+                    return pinMoves;
                 }
             }
         }
-        return pinMoves;
+        //if we got here the piece is not pinned
+        return null;
     } 
 
 

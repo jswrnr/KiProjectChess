@@ -51,6 +51,8 @@ public class GameManager {
     }
 
     public void play() {
+        //the 4 squares in the middle of the board
+        int[][] centerSquares = new int[][]{{3, 3}, {3, 4}, {4, 3}, {4, 4}};
         //play a game of chess
         Evaluator evaluator = new Evaluator();
         boolean gameOver = false;
@@ -78,10 +80,17 @@ public class GameManager {
                     //still need to check if checkmate or stalemate
                     System.out.println("Checkmate");
                 } else {
-                    System.out.println("Stalemate");
+                    System.out.println("Draw");
                 }
             } else {
                 Move move = evaluator.chooseMove(moves);
+                //reset the half move counter if a pawn is moved or a piece is captured
+                if (board.getField(move.getTo()[0], move.getTo()[1]).getPiece() != null) {
+                    halfMoveCounter = 0;
+                }
+                if (move.getPiece() == 'P' || move.getPiece() == 'p') {
+                    halfMoveCounter = 0;
+                }
                 board.movePiece(move);
                 System.out.println(move);
                 System.out.println(board);
@@ -89,9 +98,22 @@ public class GameManager {
             }
             //increase the half move counter
             halfMoveCounter++;
+            //if it hits 100, the game is a draw
+            if (halfMoveCounter == 100) {
+                gameOver = true;
+                System.out.println("Game over");
+                System.out.println("Draw by 50 move rule");
+            }
             //increase the full move counter
             if (!whitesTurn) {
                 fullMoveCounter++;
+            }
+            //if a king gets to the middle of the board, the game is over
+            int[] kingPos = whitesTurn ? board.getWhiteKingPosition() : board.getBlackKingPosition();
+            if (Arrays.stream(centerSquares).anyMatch(pos -> Arrays.equals(pos, kingPos))) {
+                gameOver = true;
+                System.out.println("Game over");
+                System.out.println((whitesTurn ? "white" : "black") + " King reached the center");
             }
         }
     }

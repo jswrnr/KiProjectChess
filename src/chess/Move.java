@@ -19,7 +19,7 @@ public class Move {
         return to;
     }
 
-    public char getMovingPiece() {
+    public char getPiece() {
         return movingPiece;
     }
 
